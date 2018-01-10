@@ -14,14 +14,17 @@
       $what_they_did = $_POST['whattheydid'];
       $email = $_POST['email'];
       $other = $_POST['other'];
-      $to = "contact@yechiel.me";
-      $subject = "$name's abduction report";
-      $msg = "$name was abducted $when_it_happened and was gone for $how_long .\n" .
-        "There were $how_many aliens, who looked like $alien_description. They $what_they_did.\n" .
-        "Was Fang spotted? $fang_spoted.\n" .
-        "Other comments: $other";
+      // $to = "contact@yechiel.me";
+      // $subject = "$name's abduction report";
+      // $msg = "$name was abducted $when_it_happened and was gone for $how_long .\n" .
+      //   "There were $how_many aliens, who looked like $alien_description. They $what_they_did.\n" .
+      //   "Was Fang spotted? $fang_spoted.\n" .
+      //   "Other comments: $other";
     
-      mail($to, $subject, $msg, 'From:' . $email);
+      // mail($to, $subject, $msg, 'From:' . $email);
+
+      $dbc = mysqli_connect('localhost', 'yechielk', 'testtest', 'aliendatabase')
+        or die('Error connecting to database');
       
       echo 'Thanks for submitting the form.<br>';
       echo 'You were abducted ' . $when_it_happened;
