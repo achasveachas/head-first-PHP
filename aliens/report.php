@@ -5,7 +5,8 @@
   <body>
     <h2>Aliens Abducted Me - Report an Abduction</h2>
     <?php
-      $name = $_POST['firstname'] . " " . $_POST['lastname'];
+      $first_name = $_POST['firstname'];
+      $last_name = $_POST['lastname'];
       $when_it_happened = $_POST['whenithappened'];
       $how_long = $_POST['howlong'];
       $how_many = $_POST['howmany'];
@@ -25,6 +26,17 @@
 
       $dbc = mysqli_connect('localhost', 'yechielk', 'testtest', 'aliendatabase')
         or die('Error connecting to database');
+
+      $query = "INSERT INTO aliens_abduction (first_name, last_name, " .
+        "when_it_happened, how_long, how_many, alien_description, " .
+        "what_they_did, fang_spotted, other, email) " .
+        "VALUES ('$first_name', '$last_name', '$when_it_happened', '$how_long', " . 
+        "'$how_many', '$alien_description', '$what_they_did', '$fang_spoted', '$other', '$email')";
+
+      $result = mysqli_query($dbc, $query)
+        or die('Error inserting into database');
+
+      mysqli_close($dbc);
       
       echo 'Thanks for submitting the form.<br>';
       echo 'You were abducted ' . $when_it_happened;
