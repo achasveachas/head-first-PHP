@@ -30,5 +30,11 @@
         };
 
         mysqli_close($dbc);
+    } elseif (empty($subject) && empty($msg)) {
+        echo "You forgot to enter a subject and a text";
+    } elseif (empty($subject)) {
+        echo "You forgot to enter a subject";
+    } elseif (empty($msg)) {
+        echo "You forgot to enter a message body";
     }
 ?>
