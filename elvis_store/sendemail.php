@@ -5,6 +5,7 @@
     $from = 'elvisstore@yechiel.me';
     $output_form = false;
     $submitted = isset($_POST['submit']);
+    
 
     if($submitted) {
 
@@ -59,7 +60,7 @@
         <input id="subject" name="subject" type="text" size="30" value="<?php echo $subject; ?>" /><br />
         <label for="elvismail">Body of email:</label><br />
         <textarea id="elvismail" name="elvismail" rows="8" cols="40" ><?php echo $msg; ?></textarea><br />
-        <input type="submit" name="Submit" value="Submit" />
+        <input type="submit" name="submit" value="Submit" />
     </form>
 
 <?php
