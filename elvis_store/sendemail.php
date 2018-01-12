@@ -1,13 +1,9 @@
 <?php
-
-    $subject = $_POST['subject'];
-    $msg = $_POST['elvismail'];
-    $from = 'elvisstore@yechiel.me';
-    $output_form = false;
-    $submitted = isset($_POST['submit']);
-    
-
-    if($submitted) {
+    if(isset($_POST['submit'])) {
+        $subject = $_POST['subject'];
+        $msg = $_POST['elvismail'];
+        $from = 'elvisstore@yechiel.me';
+        $output_form = false;
 
         if (!empty($subject) && !empty($msg)) {
 
@@ -35,16 +31,13 @@
             };
 
             mysqli_close($dbc);
-        } 
-        if (empty($subject) && empty($msg)) {
+        } elseif (empty($subject) && empty($msg)) {
             $output_form = true;
             echo "You forgot to enter a subject and a text";
-        } 
-        if (empty($subject) && !empty($msg)) {
+        } elseif (empty($subject)) {
             $output_form = true;
             echo "You forgot to enter a subject";
-        } 
-        if (empty($msg && !empty($subject))) {
+        } elseif (empty($msg)) {
             $output_form = true;
             echo "You forgot to enter a message body";
         }
