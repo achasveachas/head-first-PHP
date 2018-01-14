@@ -17,18 +17,19 @@
   $dbc = mysqli_connect('localhost', 'yechielk', 'testtest', 'guitarwars');
 
   // Retrieve the score data from MySQL
-  $query = "SELECT * FROM guitarwars";
+  $query = "SELECT * FROM guitarwars ORDER BY score DESC, date ASC";
   $data = mysqli_query($dbc, $query);
 
   // Loop through the array of score data, formatting it as HTML 
   echo '<table>';
   while ($row = mysqli_fetch_array($data)) { 
     // Display the score data
+    $screenshot = "images/" . $row['screenshot'];
     echo '<tr><td class="scoreinfo">';
     echo '<span class="score">' . $row['score'] . '</span><br />';
     echo '<strong>Name:</strong> ' . $row['name'] . '<br />';
     echo '<strong>Date:</strong> ' . $row['date'] . '</td></tr>';
-    if (is_file($row['screenshot']) && filesize($row['screenshot']) > 0){
+    if (is_file($screenshot) && filesize($screenshot) > 0){
       echo '<td><img src="images/' . $row['screenshot'] . '" alt="Score Image" /></td>';
     } else {
       echo '<td><img src="images/' . 'unverified.gif" alt="Unverified Score" /></td>';
