@@ -12,6 +12,7 @@
   <hr />
 
 <?php
+
   // Connect to the database 
   $dbc = mysqli_connect('localhost', 'yechielk', 'testtest', 'guitarwars');
 
@@ -28,9 +29,9 @@
     echo '<strong>Name:</strong> ' . $row['name'] . '<br />';
     echo '<strong>Date:</strong> ' . $row['date'] . '</td></tr>';
     if (is_file($row['screenshot']) && filesize($row['screenshot']) > 0){
-      echo '<td><img src="' . $row['screenshot'] . '" alt="Score Image" /></td>';
+      echo '<td><img src="images/' . $row['screenshot'] . '" alt="Score Image" /></td>';
     } else {
-      echo '<td><img src="unverified.gif" alt="Unverified Score" /></td>';
+      echo '<td><img src="images/' . 'unverified.gif" alt="Unverified Score" /></td>';
     }
   }
   echo '</table>';

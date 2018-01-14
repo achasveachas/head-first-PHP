@@ -10,31 +10,37 @@
   <h2>Guitar Wars - Add Your High Score</h2>
 
 <?php
+define('GW_UPLOADPATH', 'images/');
   if (isset($_POST['submit'])) {
     // Grab the score data from the POST
     $name = $_POST['name'];
     $score = $_POST['score'];
     $screenshot = $_FILES['screenshot']['name'];
 
-    if (!empty($name) && !empty($score)) {
-      // Connect to the database
-      $dbc = mysqli_connect('localhost', 'yechielk', 'testtest', 'guitarwars');
+    if (!empty($name) && !empty($score) &&!empty($screenshot)) {
+      $target = GW_UPLOADPATH . $screenshot;
+      if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {
+        // Connect to the database
+        $dbc = mysqli_connect('localhost', 'yechielk', 'testtest', 'guitarwars');
 
-      // Write the data to the database
-      $query = "INSERT INTO guitarwars VALUES (0, NOW(), '$name', '$score', '$screenshot')";
-      mysqli_query($dbc, $query);
+        // Write the data to the database
+        $query = "INSERT INTO guitarwars VALUES (0, NOW(), '$name', '$score', '$screenshot')";
+        mysqli_query($dbc, $query);
 
-      // Confirm success with the user
-      echo '<p>Thanks for adding your new high score!</p>';
-      echo '<p><strong>Name:</strong> ' . $name . '<br />';
-      echo '<strong>Score:</strong> ' . $score . '</p>';
-      echo '<p><a href="index.php">&lt;&lt; Back to high scores</a></p>';
+        // Confirm success with the user
+        echo '<p>Thanks for adding your new high score!</p>';
+        echo '<p><strong>Name:</strong> ' . $name . '<br />';
+        echo '<strong>Score:</strong> ' . $score . '</p>';
+        echo '<td><img src="' . GW_UPLOADPATH . $screenshot . '" alt="Score Image" /></td>';
+        echo '<p><a href="index.php">&lt;&lt; Back to high scores</a></p>';
 
-      // Clear the score data to clear the form
-      $name = "";
-      $score = "";
+        // Clear the score data to clear the form
+        $name = "";
+        $score = "";
 
-      mysqli_close($dbc);
+        mysqli_close($dbc);
+      }
+
     }
     else {
       echo '<p class="error">Please enter all of the information to add your high score.</p>';
@@ -44,7 +50,7 @@
 
   <hr />
   <form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <input type="hidden" name="MAX_FILE_SIZE" value="32768" />
+    <input type="hidden" name="MAX_FILE_SIZE" value="32768000000" />
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="<?php if (!empty($name)) echo $name; ?>" /><br />
     <label for="score">Score:</label>
